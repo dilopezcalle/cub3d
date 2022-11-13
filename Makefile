@@ -6,7 +6,7 @@
 #    By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/13 11:44:09 by dilopez-          #+#    #+#              #
-#    Updated: 2022/11/10 16:40:24 by dilopez-         ###   ########.fr        #
+#    Updated: 2022/11/13 16:13:48 by dilopez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,11 @@ CC				=	gcc
 CFLAGS			=	-I $(INC_DIR) -g3 #-Wall -Werror -Wextra
 
 SRCS			=	$(SRC_DIR)/main.c					\
+					$(SRC_DIR)/map.c					\
+					$(SRC_DIR)/utils.c					\
+					$(SRC_DIR)/color.c					\
 					$(SRC_DIR)/parser.c					\
+					$(SRC_DIR)/syntax.c					\
 					$(GNL_DIR)/get_next_line_utils.c	\
 					$(GNL_DIR)/get_next_line.c			\
 

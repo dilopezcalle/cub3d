@@ -6,7 +6,7 @@
 #    By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 11:04:00 by almirand          #+#    #+#              #
-#    Updated: 2022/11/10 14:39:54 by dilopez-         ###   ########.fr        #
+#    Updated: 2022/11/13 13:12:09 by dilopez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ OBJ_BONUS	=	$(SRC_BONUS:.c=.o)
 
 CC			=	gcc
 
-FLAGS		=	-Wall -Wextra -Werror -I $(INC_DIR)
+FLAGS		=	-g -Wall -Wextra -Werror -I $(INC_DIR)
 
 YELLOW		=	"\\x1b[33m"
 RESET		=	"\\x1b[37m"

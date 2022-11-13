@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 11:29:06 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/12 12:05:34 by dilopez-         ###   ########.fr       */
+/*   Created: 2022/11/12 11:47:31 by dilopez-          #+#    #+#             */
+/*   Updated: 2022/11/12 14:36:28 by dilopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef UTILS_H
+# define UTILS_H
 
-t_content	*parser(char *file);
+void	free_double_str(char **array);
+int		free_content_struct(t_content *content);
 
 #endif

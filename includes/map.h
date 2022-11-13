@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 11:29:06 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/12 12:05:34 by dilopez-         ###   ########.fr       */
+/*   Created: 2022/11/12 17:50:49 by dilopez-          #+#    #+#             */
+/*   Updated: 2022/11/13 16:13:08 by dilopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef MAP_H
+# define MAP_H
 
-t_content	*parser(char *file);
+# include "structs.h"
+
+int	check_and_get_map(t_content *content, char **file_content);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:31:58 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/10 16:18:49 by dilopez-         ###   ########.fr       */
+/*   Updated: 2022/11/13 17:15:16 by dilopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "struct.h"
+#include "structs.h"
 #include "libft.h"
+#include "syntax.h"
+#include "utils.h"
 
 static int	check_arg_syntax(char *file);
-static char	**get_str_file(int fd);
+static char	*get_str_file(int fd);
 
 char		*get_next_line(int fd);
 
-int	parser(char *file)
+t_content	*parser(char *file)
 {
-	int		i = 0;
-	int		fd;
-	char	**content;
+	int			fd;
+	char		*str;
+	t_content	*content;
 
 	if (check_arg_syntax(file))
-		return (1);
+		return (printf("El fichero no acaba en .cub"), NULL);
 	fd = open (file, O_RDONLY);
 	if (fd == -1 && close(fd) == 0)
-		return (perror("Error"), 1);
-	content = get_str_file(fd);
-	while (content[i])
+		return (perror("Error:"), NULL);
+	str = get_str_file(fd);
+	if (!str)
+		return (0);
+	if (check_str_nl(str))
+		return (0);
+	content = ft_calloc(1, sizeof(t_content));
+	if (!content)
+		return (free(str), NULL);
+	if (get_content_struct(content, str))
+		return (printf("Error al crear la estructura\n"), NULL);
+	fd = 0;
+	while (content->map[fd])
 	{
-		printf("%s\n", content[i]);
-		i++;
+		printf("%s\n", content->map[fd]);
+		fd++;
 	}
-	return (0);
+	free_content_struct(content);
+	return (content);
 }
 
 static int	check_arg_syntax(char *file)
@@ -53,14 +66,15 @@ static int	check_arg_syntax(char *file)
 	return (0);
 }
 
-static char	**get_str_file(int fd)
+static char	*get_str_file(int fd)
 {
 	char	*line;
 	char	*str;
 	char	*aux;
-	char	**content;
 
 	line = get_next_line(fd);
+	if (!line)
+		return (printf("Error: Fichero vacío\n"), line);
 	str = 0;
 	str = ft_strjoin(line, "");
 	free(line);
@@ -72,9 +86,7 @@ static char	**get_str_file(int fd)
 		str = ft_strjoin(aux, line);
 		free(aux);
 		free(line);
-		line = get_next_line(fd);in
+		line = get_next_line(fd);
 	}
-	content = ft_split(str, '\n');
-	free(str);
-	return (content);
+	return (str);
 }
