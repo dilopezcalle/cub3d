@@ -6,7 +6,7 @@
 #    By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/13 11:44:09 by dilopez-          #+#    #+#              #
-#    Updated: 2022/11/13 16:13:48 by dilopez-         ###   ########.fr        #
+#    Updated: 2022/11/15 14:14:26 by dilopez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ GNL_DIR			=	$(SRC_DIR)/get_next_line
 LINKS			=	-L . -lmlx -framework OpenGL -framework AppKit
 
 RM				=	rm -rf
-CC				=	gcc
+CC				=	gcc -fsanitize=address 
 CFLAGS			=	-I $(INC_DIR) -g3 #-Wall -Werror -Wextra
 
 SRCS			=	$(SRC_DIR)/main.c					\
@@ -63,7 +63,7 @@ $(NAME):	$(PREFIXED)
 
 $(OBJ_DIR)/%.o:	%.c
 	mkdir -p $(OBJ_DIR)/$(GNL_DIR)
-	printf "$(YELLOW)Compiling project's file -> $(RESET)%-33.33s\r" $<
+	printf "$(YELLOW)Compiling project's file >> $(RESET)%-33.33s\r" $<
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # ================================= FUNCTIONS =================================

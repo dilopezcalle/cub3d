@@ -6,7 +6,7 @@
 #    By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 11:04:00 by almirand          #+#    #+#              #
-#    Updated: 2022/11/13 13:12:09 by dilopez-         ###   ########.fr        #
+#    Updated: 2022/11/15 10:09:02 by dilopez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ $(NAME):		$(PREFIXED)
 	@ar -crs $@ $^
 
 $(OBJ_DIR)/%.o:	%.c
-	@printf "$(YELLOW)Compiling libft's file -> $(RESET)%-33.33s\r" $<
+	@printf "$(YELLOW)Compiling libft's file >> $(RESET)%-33.33s\r" $<
 	@mkdir -p $(OBJ_DIR)/libft
 	@$(CC) $(FLAGS) -c $< -o $@
 

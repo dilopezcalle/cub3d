@@ -6,13 +6,14 @@
 /*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:47:15 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/12 14:35:13 by dilopez-         ###   ########.fr       */
+/*   Updated: 2022/11/15 10:10:05 by dilopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
 #include "structs.h"
+#include "libft.h"
 
 void	free_double_str(char **array)
 {
@@ -43,5 +44,16 @@ int	free_content_struct(t_content *content)
 	if (content->path_ea)
 		free(content->path_ea);
 	free(content);
+	return (0);
+}
+
+int	check_extension(char *file, char *set)
+{
+	int		i;
+	char	*extension;
+
+	extension = ft_strrchr(file, '.');
+	if (!extension || ft_strncmp(extension, set, ft_strlen(set) + 1) != 0)
+		return (1);
 	return (0);
 }

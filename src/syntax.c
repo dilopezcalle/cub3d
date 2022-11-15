@@ -6,7 +6,7 @@
 /*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 10:33:25 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/13 16:13:29 by dilopez-         ###   ########.fr       */
+/*   Updated: 2022/11/15 09:59:55 by dilopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,13 @@ int	get_content_struct(t_content *content, char *str)
 			|| (type == 2 && check_and_get_color(content, file_content[i])) \
 			|| (type == 3 && check_and_get_map(content, file_content + i)))
 			return (free(str), free_double_str(file_content), \
-					free_content_struct(content), 1);
+			free_content_struct(content), printf("Error: Datos invalidos\n"), 1);
 		else if (type == 3)
 			break ;
 	}
+	if (i < 6 || !file_content[i])
+		return (printf("Error: Faltan datos en el fichero\n"), free(str), \
+		free_double_str(file_content), free_content_struct(content), 1);
 	return (free(str), free_double_str(file_content), 0);
 }
 

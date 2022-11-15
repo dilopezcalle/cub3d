@@ -6,7 +6,7 @@
 /*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:31:58 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/13 17:15:16 by dilopez-         ###   ########.fr       */
+/*   Updated: 2022/11/15 10:07:09 by dilopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include "syntax.h"
 #include "utils.h"
 
-static int	check_arg_syntax(char *file);
 static char	*get_str_file(int fd);
 
 char		*get_next_line(int fd);
@@ -30,8 +29,8 @@ t_content	*parser(char *file)
 	char		*str;
 	t_content	*content;
 
-	if (check_arg_syntax(file))
-		return (printf("El fichero no acaba en .cub"), NULL);
+	if (check_extension(file, ".cub"))
+		return (printf("Error: El fichero no acaba en .cub\n"), NULL);
 	fd = open (file, O_RDONLY);
 	if (fd == -1 && close(fd) == 0)
 		return (perror("Error:"), NULL);
@@ -44,26 +43,9 @@ t_content	*parser(char *file)
 	if (!content)
 		return (free(str), NULL);
 	if (get_content_struct(content, str))
-		return (printf("Error al crear la estructura\n"), NULL);
-	fd = 0;
-	while (content->map[fd])
-	{
-		printf("%s\n", content->map[fd]);
-		fd++;
-	}
+		return (printf("Error: No se pudo crear la estructura\n"), NULL);
 	free_content_struct(content);
 	return (content);
-}
-
-static int	check_arg_syntax(char *file)
-{
-	int		i;
-	char	*extension;
-
-	extension = ft_strrchr(file, '.');
-	if (!extension || ft_strncmp(extension, ".cub", 5) != 0)
-		return (1);
-	return (0);
 }
 
 static char	*get_str_file(int fd)
@@ -74,7 +56,7 @@ static char	*get_str_file(int fd)
 
 	line = get_next_line(fd);
 	if (!line)
-		return (printf("Error: Fichero vacío\n"), line);
+		return (printf("Error: El fichero no existe o esta vacío\n"), line);
 	str = 0;
 	str = ft_strjoin(line, "");
 	free(line);
