@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:31:58 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/15 10:07:09 by dilopez-         ###   ########.fr       */
+/*   Updated: 2022/11/19 15:25:54 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_content	*parser(char *file)
 		return (free(str), NULL);
 	if (get_content_struct(content, str))
 		return (printf("Error: No se pudo crear la estructura\n"), NULL);
-	free_content_struct(content);
+	//free_content_struct(content);
 	return (content);
 }
 

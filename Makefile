@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+         #
+#    By: almirand <almirand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/13 11:44:09 by dilopez-          #+#    #+#              #
-#    Updated: 2022/11/19 08:31:11 by dilopez-         ###   ########.fr        #
+#    Updated: 2022/11/19 14:31:46 by almirand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ $(NAME):	$(PREFIXED)
 	cp $(MINILIBX_DIR)/$(MINILIBX) .
 	$(MAKE) -C $(LIBFT_DIR)
 	cp $(LIBFT_DIR)/$(LIBFT) .
-	$(CC) $(CFLAGS) $(PREFIXED) $(RLFLAGS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(PREFIXED) $(RLFLAGS) $(LINKS) $(LIBFT) -o $(NAME)
 	echo "\n${GREEN}------------------ Mandatory part compiled! ------------------${RESET}\n"
 
 $(OBJ_DIR)/%.o:	%.c

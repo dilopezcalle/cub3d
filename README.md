@@ -4,6 +4,7 @@
 
 http://forums.mediabox.fr/wiki/tutoriaux/flashplatform/affichage/3d/raycasting<br>
 https://harm-smits.github.io/42docs/projects/cub3d
+https://github.com/l-yohai/cub3d/blob/master/mlx_example/02_textured_raycast.c
 
 ### Estructura que saldrá del parseo:
 

@@ -6,12 +6,14 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 09:42:25 by almirand          #+#    #+#             */
-/*   Updated: 2022/11/19 09:51:36 by almirand         ###   ########.fr       */
+/*   Updated: 2022/11/19 10:29:58 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYS_H
 # define KEYS_H
+
+# define ESC			53
 
 /*
 ** Movement ASWD
