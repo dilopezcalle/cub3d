@@ -6,7 +6,7 @@
 /*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:46:07 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/13 15:25:21 by dilopez-         ###   ########.fr       */
+/*   Updated: 2022/11/19 09:48:00 by dilopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 #include "structs.h"
 #include "libft.h"
 
-static int	check_syntax_color(t_content *content, t_color *color, char *str, \
-								int start);
-static int	save_int_color(t_content *content, t_color *color, char *s_color, \
-							int type);
-static int	get_int_colors(t_content *content, char *str, t_color *color, \
-							int start);
+static int	check_syntax_color(t_color *color, char *str, int start);
+static int	save_int_color(t_color *color, char *s_color, int type);
+static int	get_int_colors(char *str, t_color *color, int start);
 static int	minilibx_color(int r, int g, int b);
 
 int	check_and_get_color(t_content *content, char *str)
@@ -41,7 +38,7 @@ int	check_and_get_color(t_content *content, char *str)
 		i++;
 	if (!str[i])
 		return (printf("Error: Sintaxis de color invalida\n"), 1);
-	if (check_syntax_color(content, color, str, i))
+	if (check_syntax_color(color, str, i))
 		return (1);
 	if (ft_strncmp(str, "F", 1) == 0 && content->color_floor == -1)
 		content->color_floor = minilibx_color(color->r, color->g, color->b);
@@ -52,8 +49,7 @@ int	check_and_get_color(t_content *content, char *str)
 	return (free(color), 0);
 }
 
-static int	check_syntax_color(t_content *content, t_color *color, char *str, \
-								int start)
+static int	check_syntax_color(t_color *color, char *str, int start)
 {
 	char	*rgb;
 	int		i;
@@ -67,7 +63,7 @@ static int	check_syntax_color(t_content *content, t_color *color, char *str, \
 	color->r = -1;
 	color->g = -1;
 	color->b = -1;
-	if (get_int_colors(content, rgb, color, start))
+	if (get_int_colors(rgb, color, start))
 		return (free(rgb), free(color), 1);
 	free(rgb);
 	if (color->r == -1 || color->g == -1 || color->b == -1)
@@ -75,8 +71,7 @@ static int	check_syntax_color(t_content *content, t_color *color, char *str, \
 	return (0);
 }
 
-static int	get_int_colors(t_content *content, char *str, t_color *color, \
-							int start)
+static int	get_int_colors(char *str, t_color *color, int start)
 {
 	char	*s_color;
 	int		type;
@@ -96,7 +91,7 @@ static int	get_int_colors(t_content *content, char *str, t_color *color, \
 		if (str[i])
 			i++;
 		start = i;
-		if (save_int_color(content, color, s_color, type))
+		if (save_int_color(color, s_color, type))
 			return (free(s_color), 1);
 		free(s_color);
 		type++;
@@ -104,9 +99,17 @@ static int	get_int_colors(t_content *content, char *str, t_color *color, \
 	return (0);
 }
 
-static int	save_int_color(t_content *content, t_color *color, char *s_color, \
-							int type)
+static int	save_int_color(t_color *color, char *s_color, int type)
 {
+	int	i;
+
+	i = 0;
+	while (s_color[i])
+	{
+		if (!ft_isdigit(s_color[i]))
+			return (printf("Error: Caracter de color invalido\n"), 1);
+		i++;
+	}
 	if (type <= 3 && ((ft_atoi(s_color) > 0 && ft_atoi(s_color) <= 255) \
 		|| (ft_atoi(s_color) == 0 && s_color[0] == '0')))
 	{

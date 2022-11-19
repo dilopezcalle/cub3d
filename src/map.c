@@ -6,7 +6,7 @@
 /*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:19:42 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/15 09:16:27 by dilopez-         ###   ########.fr       */
+/*   Updated: 2022/11/19 08:36:03 by dilopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,17 @@ static int	check_chars_map(char **map)
 {
 	int	y;
 	int	x;
+	int	c_player;
 
-	y = 0;
-	while (map[y])
+	c_player = 0;
+	y = -1;
+	while (map[++y])
 	{
-		x = 0;
-		while (map[y][x])
+		x = -1;
+		while (map[y][++x])
 		{
+			if (map[y][x] != ' ' && map[y][x] != '0' && map[y][x] != '1')
+				c_player++;
 			if (map[y][x] != ' ' && map[y][x] != '0' && \
 				map[y][x] != '1' && map[y][x] != 'N' && \
 				map[y][x] != 'S' && map[y][x] != 'E' && map[y][x] != 'W')
@@ -65,16 +69,15 @@ static int	check_chars_map(char **map)
 			else if (map[y][x] != '1' && map[y][x] != ' ' \
 					&& check_spaces_map(map, y, x))
 				return (1);
-			x++;
 		}
-		y++;
 	}
+	if (c_player != 1)
+		return (printf("Error: Caracter de jugador invalido\n"), 1);
 	return (0);
 }
 
 static int	check_spaces_map(char **map, int y, int x)
 {
-	int	i;
 	int	len;
 
 	len = 0;

@@ -6,7 +6,7 @@
 /*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:47:15 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/15 10:10:05 by dilopez-         ###   ########.fr       */
+/*   Updated: 2022/11/19 08:12:02 by dilopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	free_content_struct(t_content *content)
 
 int	check_extension(char *file, char *set)
 {
-	int		i;
 	char	*extension;
 
 	extension = ft_strrchr(file, '.');
