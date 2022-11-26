@@ -6,7 +6,7 @@
 #    By: almirand <almirand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/13 11:44:09 by dilopez-          #+#    #+#              #
-#    Updated: 2022/11/19 14:31:46 by almirand         ###   ########.fr        #
+#    Updated: 2022/11/26 11:40:53 by almirand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,12 @@ LINKS			=	-L . -lmlx -framework OpenGL -framework AppKit
 
 RM				=	rm -rf
 CC				=	gcc
-CFLAGS			=	-I $(INC_DIR) -g3 -Wall -Werror -Wextra
+CFLAGS			=	-I $(INC_DIR) -g3 -Wall -Werror -Wextra  #-fsanitize=address
 
 SRCS			=	$(SRC_DIR)/main.c					\
 					$(SRC_DIR)/map.c					\
+					$(SRC_DIR)/textures.c				\
+					$(SRC_DIR)/init.c					\
 					$(SRC_DIR)/utils.c					\
 					$(SRC_DIR)/color.c					\
 					$(SRC_DIR)/parser.c					\

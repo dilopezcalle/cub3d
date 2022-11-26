@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:46:07 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/19 09:48:00 by dilopez-         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:15:45 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 static int	check_syntax_color(t_color *color, char *str, int start);
 static int	save_int_color(t_color *color, char *s_color, int type);
 static int	get_int_colors(char *str, t_color *color, int start);
-static int	minilibx_color(int r, int g, int b);
+int			minilibx_color(int r, int g, int b);
 
 int	check_and_get_color(t_content *content, char *str)
 {
@@ -125,7 +125,7 @@ static int	save_int_color(t_color *color, char *s_color, int type)
 	return (0);
 }
 
-static int	minilibx_color(int r, int g, int b)
+int	minilibx_color(int r, int g, int b)
 {
 	return (0 << 24 | r << 16 | g << 8 | b);
 }
