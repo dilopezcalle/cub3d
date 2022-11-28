@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:11:56 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/26 17:44:42 by almirand         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:29:31 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,13 @@ typedef struct s_window
  * raydist_y		- Length ray from pos to next y
  * hit				- If there's a wall hit
  * side				- 0 NS, 1 SW
+ * draw_start		- Lowest pixel to fill
+ * draw_end			- Highest pixel to fill
+ * line_height		- Height of line to draw
+ * wall_x			- value of wall in x
+ * tex_x			- Value coord x of texture
+ * tex_pos			- Starting texture coord
+ * tex_y			- Value coord y of texture
  */
 typedef struct s_maths
 {
@@ -138,6 +145,17 @@ typedef struct s_maths
 	double	raydist_y;
 	int		hit;
 	int		side;
+	int		draw_start;
+	int		draw_end;
+	int		line_height;
+	double	wall_x;
+	int		tex_x;
+	int		tex_y;
+	double	tex_pos;
+	double	floor_xwall;
+	double	floor_ywall;
+	double	current_xwall;
+	double	current_ywall;
 }			t_maths;
 
 #endif

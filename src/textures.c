@@ -6,12 +6,13 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:43:14 by almirand          #+#    #+#             */
-/*   Updated: 2022/11/26 17:35:25 by almirand         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:50:58 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 #include "minilibx/mlx.h"
+#include <math.h>
 
 void	floor_cast(t_window *wndw, t_maths *math, int x, int y);
 void	get_texture_image(t_window *wndw, unsigned char	*txture, \
@@ -21,6 +22,10 @@ void	init_maths2(t_window *wndw, t_maths *math, int x);
 int		minilibx_color(int r, int g, int b);
 void	wall_hit(t_maths *math, t_window *wndw);
 void	ray_direction(t_maths *math, t_window *wndw);
+void	floor_walls(t_maths	*math, t_window	*wndw);
+void	floor_draw(t_maths	*math, t_window	*wndw, int x);
+void	init_maths3(t_window	*wndw, t_maths *math);
+void	draw_textures(t_window	*wndw, t_maths	*math, int x);
 
 void	get_textures(t_window *wndw, t_content *content)
 {
@@ -72,7 +77,105 @@ void	build_image(t_window *wndw)
 		init_maths2(wndw, &math, x);
 		ray_direction(&math, wndw);
 		wall_hit(&math, wndw);
+		init_maths3(wndw, &math);
+		draw_textures(wndw, &math, x);
+		floor_walls(&math, wndw);
+		floor_draw(&math, wndw, x);
 	}
+}
+
+void	floor_draw(t_maths	*math, t_window	*wndw, int x)
+{
+	int		y;
+	double	weight;
+	int		xfloor_text;
+	int		yfloor_text;
+	int		text;
+
+	y = math->draw_end + 1;
+	while (y < HEIGHT)
+	{
+		weight = (HEIGHT / (2.0 * y - HEIGHT)) / (math->perp_wall_dist);
+		math->current_xwall = weight * math->floor_xwall + (1.0 - weight) * wndw->pos_x;
+		math->current_ywall = weight * math->floor_ywall + (1.0 - weight) * wndw->pos_y;
+		xfloor_text = (int)(math->current_xwall * TEX_SIZE) % TEX_SIZE;
+		yfloor_text = (int)(math->current_ywall * TEX_SIZE) % TEX_SIZE;
+		if (((int)(math->current_xwall) + (int)(math->current_ywall)) % 2)
+			text = 3;
+		else
+			text = 4;
+		wndw->buff[y][x] = minilibx_color(104, 188, 60); //SUELO
+		wndw->buff[HEIGHT - y][x] = minilibx_color(104, 188, 235);
+	}
+}
+
+void	floor_walls(t_maths	*math, t_window	*wndw)
+{
+	if (!math->side && math->xdir > 0)
+	{
+		math->floor_xwall = (int)wndw->pos_x;
+		math->floor_ywall = (int)wndw->pos_y + math->wall_x;
+	}
+	else if (!math->side && math->xdir < 0)
+	{
+		math->floor_xwall = (int)wndw->pos_x + 1.0;
+		math->floor_ywall = (int)wndw->pos_y + math->wall_x;
+	}
+	else if (math->side && math->ydir > 0)
+	{
+		math->floor_xwall = (int)wndw->pos_x + math->wall_x;
+		math->floor_ywall = (int)wndw->pos_y;
+	}
+	else
+	{
+		math->floor_xwall = (int)wndw->pos_x + math->wall_x;
+		math->floor_ywall = (int)wndw->pos_y + 1.0;
+	}
+	if (math->draw_end < 0)
+		math->draw_end = HEIGHT;
+}
+
+void	draw_textures(t_window	*wndw, t_maths	*math, int x)
+{
+	int	y;
+	int	color;
+	int	texture;
+
+	y = math->draw_start;
+	texture = wndw->content->map[(int)wndw->pos_y][(int)wndw->pos_x] - 1; //TO DO: Change texture number to sides.
+	while (y < math->draw_end)
+	{
+		math->tex_y = (int)math->tex_pos & (TEX_SIZE - 1);
+		math->tex_pos += 1.0 * TEX_SIZE / math->line_height;
+		color = wndw->texture[texture][TEX_SIZE * math->tex_y * math->tex_x];
+		if (math->side)
+			color = (color >> 1) & 8355711;
+		wndw->buff[y][x] = color;
+		y++;
+	}
+}
+
+void	init_maths3(t_window	*wndw, t_maths *math)
+{
+	math->line_height = (int)(HEIGHT / math->perp_wall_dist);
+	math->draw_start = -math->line_height / 2 + HEIGHT / 2;
+	if (math->draw_start < 0)
+		math->draw_start = 0;
+	math->draw_end = math->line_height / 2 + HEIGHT / 2;
+	if (math->draw_end >= HEIGHT)
+		math->draw_end = HEIGHT - 1;
+	if (!math->side)
+		math->wall_x = wndw->pos_y + math->perp_wall_dist * math->ydir;
+	else
+		math->wall_x = wndw->pos_x + math->perp_wall_dist * math->xdir;
+	math->wall_x -= floor(math->wall_x);
+	math->tex_x = (int)(math->wall_x * (double)TEX_SIZE);
+	if (math->side == 0 && math->xdir > 0)
+		math->tex_x = TEX_SIZE - math->tex_x - 1;
+	if (math->side == 1 && math->ydir < 0)
+		math->tex_x = TEX_SIZE - math->tex_x - 1;
+	math->tex_pos = (math->draw_start - HEIGHT / 2 + math->line_height / 2) * \
+		1.0 * TEX_SIZE / math->line_height;
 }
 
 void	floor_cast(t_window *wndw, t_maths *math, int x, int y)
@@ -131,7 +234,7 @@ void	wall_hit(t_maths *math, t_window *wndw)
 			math->side = 1;
 		}
 		//Check ray hit
-		if (wndw->content->map[math->posx][math->posy] > 0)
+		if (wndw->content->map[math->posy][math->posx] > 0) //TO DO: Check x y coord
 			math->hit = 1;
 	}
 	if (!math->side)

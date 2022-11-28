@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:46:07 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/26 17:15:45 by almirand         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:44:21 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,5 @@ static int	save_int_color(t_color *color, char *s_color, int type)
 
 int	minilibx_color(int r, int g, int b)
 {
-	return (0 << 24 | r << 16 | g << 8 | b);
+	return (100 << 24 | r << 16 | g << 8 | b);
 }
