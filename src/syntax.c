@@ -131,6 +131,8 @@ static int	save_access_texture(t_content *content, char *str, int i)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (free(file), perror("Error"), 1);
+	if (check_extension(file, ".xpm"))
+		return (printf("Error: \"%s\" no es xpm\n", file), free(file), 1);
 	close(fd);
 	if (ft_strncmp(str, "NO", 2) == 0 && !content->path_no)
 		content->path_no = file;

@@ -44,7 +44,6 @@ t_content	*parser(char *file)
 		return (free(str), NULL);
 	if (get_content_struct(content, str))
 		return (printf("Error: No se pudo crear la estructura\n"), NULL);
-	//free_content_struct(content);
 	return (content);
 }
 
