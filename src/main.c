@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 10:22:54 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/28 17:47:58 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/03 16:29:36 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	return (0);
+}
+
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+{
+	unsigned char	*dst;
+
+	dst = data->addr + (y * data->size + x * (data->bpp / 8));
+	*(unsigned int *)dst = color;
 }
 
 int	init_window(t_content *content)
@@ -146,26 +154,43 @@ int	key_hook3(int key, t_window	*wndw)
 	return (0);
 }
 
-int	each_frame(t_window *wndw)
+void	clean_buffer(t_window *wndw)
 {
-	build_image(wndw);
-	draw_image(wndw);
-	return (0);
-}
-
-void	draw_image(t_window *wndw)
-{
-	int	y;
 	int	x;
+	int	y;
 
 	y = -1;
 	while (++y < HEIGHT)
 	{
 		x = -1;
 		while (++x < WIDTH)
-		{
-			wndw->img.addr[y * WIDTH + x] = wndw->buff[y][x];
-		}
+			wndw->buff[y][x] = 0;
 	}
-	mlx_put_image_to_window(wndw->mlx, wndw->win, wndw->img.image, 0, 0);
+}
+
+int	each_frame(t_window *wndw)
+{
+	build_image(wndw);
+	draw_image(wndw);
+	clean_buffer(wndw);
+	return (0);
+}
+
+void	draw_image(t_window *wndw)
+{
+	int		y;
+	int		x;
+	t_img	img;
+
+	img.image = mlx_new_image(wndw->mlx, WIDTH, HEIGHT);
+	img.addr = (unsigned char *)mlx_get_data_addr(img.image, \
+		&img.bpp, &img.size, &img.endian);
+	y = -1;
+	while (++y < HEIGHT)
+	{
+		x = -1;
+		while (++x < WIDTH)
+			my_mlx_pixel_put(&img, x, y, wndw->buff[y][x]);
+	}
+	mlx_put_image_to_window(wndw->mlx, wndw->win, img.image, 0, 0);
 }

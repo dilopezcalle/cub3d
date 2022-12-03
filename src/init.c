@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:33:34 by almirand          #+#    #+#             */
-/*   Updated: 2022/11/28 15:32:25 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:00:27 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	get_player(t_window *wndw, t_content *content)
 				wndw->pos_x = x;
 				wndw->pos_y = y;
 				get_player_dir(pos, wndw);
+				content->map[y][x] = 0;
 				return ;
 			}
 			x++;
@@ -77,7 +78,7 @@ int	init_buffer(t_window	*wndw)
 	while (++i < HEIGHT)
 	{
 		wndw->buff[i] = (unsigned char *)malloc(sizeof(int) * (WIDTH));
-		if (!(wndw->buff))
+		if (!(wndw->buff[i]))
 			return (-1);
 	}
 	i = -1;
@@ -97,14 +98,14 @@ int	init_texture(t_window	*wndw)
 
 	i = -1;
 	wndw->texture = (unsigned char **)malloc(sizeof(unsigned char *) * \
-		TEX_SIZE);
+		4);
 	if (!wndw->texture)
 		return (-1);
 	while (++i < 4)
 	{
 		wndw->texture[i] = (unsigned char *)malloc(sizeof(unsigned char) * \
 			(TEX_SIZE * TEX_SIZE));
-		if (!wndw->texture)
+		if (!wndw->texture[i])
 			return (-1);
 	}
 	i = -1;
@@ -117,20 +118,7 @@ int	init_texture(t_window	*wndw)
 	return (0);
 }
 
-void	init_maths(t_window *wndw, t_maths *math, int y)
-{
-	math->xdir_left = wndw->dir_x - wndw->plane_x;
-	math->xdir_right = wndw->dir_x + wndw->plane_x;
-	math->ydir_left = wndw->dir_y - wndw->plane_y;
-	math->ydir_right = wndw->dir_y + wndw->plane_y;
-	math->y_screen = y - HEIGHT / 2;
-	math->cam_z = 0.5 * HEIGHT;
-	math->row_dist = math->cam_z / math->y_screen;
-	math->leftx_column = wndw->pos_x + math->row_dist * math->leftx_column;
-	math->lefty_column = wndw->pos_y + math->row_dist * math->lefty_column;
-}
-
-void	init_maths2(t_window *wndw, t_maths *math, int x)
+void	init_maths(t_window *wndw, t_maths *math, int x)
 {
 	math->cam_x = 2 * x / (double) WIDTH - 1;
 	math->xdir = wndw->dir_x + wndw->plane_x * math->cam_x;

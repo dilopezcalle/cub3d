@@ -6,15 +6,15 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:11:56 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/28 18:29:31 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/03 14:56:41 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-# define WIDTH 640
-# define HEIGHT 480
+# define WIDTH 1280
+# define HEIGHT 768
 # define TEX_SIZE 64
 
 typedef struct s_color
