@@ -58,12 +58,13 @@ int	init_window(t_content *content)
 	t_window	wndw;
 
 	wndw.mlx = mlx_init();
-	//get_player(&wndw, content);
+	get_player(&wndw, content);
 	// DIEGO: Guardar mapa en int en WNDW.map, ya tienes el N,S,E,W a 0, en teoria.
-	wndw.pos_x = 13.0;
-	wndw.pos_y = 3.0;
+	// wndw.pos_x = 13.0;
+	// wndw.pos_y = 3.0;
 	wndw.dir_x = -1.0;
 	wndw.dir_y = 0.0;
+	printf("x: %f\ny: %f\n", wndw.pos_x, wndw.pos_y);
 	wndw.plane_x = 0.0;
 	wndw.plane_y = 0.66;
 	wndw.full_buff = 0;
@@ -75,6 +76,12 @@ int	init_window(t_content *content)
 		return (-1);
 	get_textures(&wndw, content);
 	wndw.content = content;
+	int i = 0;
+	while (wndw.content->map[i])
+	{
+		printf("%s\n", wndw.content->map[i]);
+		i++;
+	}
 	wndw.win = mlx_new_window(wndw.mlx, WIDTH, HEIGHT, "KIUB-3D");
 	wndw.img.image = mlx_new_image(wndw.mlx, WIDTH, HEIGHT);
 	wndw.img.addr = mlx_get_data_addr(wndw.img.image, \
