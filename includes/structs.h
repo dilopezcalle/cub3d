@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:11:56 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/12/03 14:56:41 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/04 14:05:35 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_content
  * */
 typedef struct s_img {
 	void			*image;
-	unsigned char	*addr;
+	char			*addr;
 	int				bpp;
 	int				size;
 	int				endian;
@@ -74,40 +74,32 @@ typedef struct s_window
 	double			dir_y;
 	double			plane_x;
 	double			plane_y;
-	unsigned char	**buff;
+	int				**buff;
 	int				full_buff;
 	double			spd_move;
 	double			spd_cam;
-	unsigned char	**texture;
+	int				**texture;
 	t_content		*content;
 	double			aux_dirx;
 	double			aux_planex;
+	int				**map;
+	int				map_weight;
+	int				map_height;
 }			t_window;
 
 /*
- * xdir_left		- Direction for ray on left, x = 0
- * ydir_left		- Direction for ray on left, y = 0
- * xdir_right		- Direction for ray on right, x = width
- * ydir_right		- Direction for ray on right, y = width
- * y_screen			- Horizon y compared to center of screen
- * cam_z			- Camera vertical position, being 0.5 middle of the screen.
- * row_dist			- Distance from camera to floor of each row
- * leftx_colum		- X coord of left column
- * lefty_colum		- Y coord of left column
  * stepx			- Direction to step in x (+1, -1)
  * stepy			- Direction to step in y (+1, -1)
- * text_x			- Coordinate x of texture
- * text_y			- Coordinate y of texture
  * cam_x			- X position of cam
- * xdir				- Camera X pos
- * ydir				- Camera Y pos
+ * xdir				- ray direction X
+ * ydir				- ray direction Y
  * posx				- Player X pos int
  * posy				- Player Y pos int
  * delta_x			- Dist from x to next x
  * delta_y			- Dist from y to next y
  * perp_wall_dist	- Perp distance from player to wall
- * raydist_x		- Length ray from pos to next x
- * raydist_y		- Length ray from pos to next y
+ * raydist_x		- side dist ray from pos to next x
+ * raydist_y		- side dist ray from pos to next y
  * hit				- If there's a wall hit
  * side				- 0 NS, 1 SW
  * draw_start		- Lowest pixel to fill
@@ -120,19 +112,8 @@ typedef struct s_window
  */
 typedef struct s_maths
 {
-	float	xdir_left;
-	float	xdir_right;
-	float	ydir_left;
-	float	ydir_right;
-	float	y_screen;
-	float	cam_z;
-	float	row_dist;
-	float	leftx_column;
-	float	lefty_column;
 	float	stepx;
 	float	stepy;
-	float	text_x;
-	float	text_y;
 	double	cam_x;
 	double	xdir;
 	double	ydir;
@@ -152,10 +133,7 @@ typedef struct s_maths
 	int		tex_x;
 	int		tex_y;
 	double	tex_pos;
-	double	floor_xwall;
-	double	floor_ywall;
-	double	current_xwall;
-	double	current_ywall;
+	double	step;
 }			t_maths;
 
 #endif

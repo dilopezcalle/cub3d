@@ -6,41 +6,13 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:33:34 by almirand          #+#    #+#             */
-/*   Updated: 2022/12/03 17:00:27 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/04 12:51:29 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 #include <stdlib.h>
 #include <math.h>
-
-void	get_player_dir(char pos, t_window	*wndw);
-
-void	get_player(t_window *wndw, t_content *content)
-{
-	int		x;
-	int		y;
-	char	pos;
-
-	y = -1;
-	while (content->map[++y])
-	{
-		x = 0;
-		while (content->map[y][x])
-		{
-			pos = content->map[y][x];
-			if (pos == 'N' || pos == 'S' || pos == 'E' || pos == 'W')
-			{
-				wndw->pos_x = x;
-				wndw->pos_y = y;
-				get_player_dir(pos, wndw);
-				content->map[y][x] = 0;
-				return ;
-			}
-			x++;
-		}
-	}
-}
 
 void	get_player_dir(char pos, t_window	*wndw)
 {
@@ -61,8 +33,8 @@ void	get_player_dir(char pos, t_window	*wndw)
 	}
 	else if (pos == 'W')
 	{
-		wndw->dir_y = -1.0;
-		wndw->dir_x = 0.0;
+		wndw->dir_y = 0.0;
+		wndw->dir_x = 1.0;
 	}
 }
 
@@ -72,12 +44,12 @@ int	init_buffer(t_window	*wndw)
 	int	j;
 
 	i = -1;
-	wndw->buff = (unsigned char **)malloc(sizeof(unsigned char *) * HEIGHT);
+	wndw->buff = (int **)malloc(sizeof(int *) * HEIGHT);
 	if (!(wndw->buff))
 		return (-1);
 	while (++i < HEIGHT)
 	{
-		wndw->buff[i] = (unsigned char *)malloc(sizeof(int) * (WIDTH));
+		wndw->buff[i] = (int *)malloc(sizeof(int) * (WIDTH));
 		if (!(wndw->buff[i]))
 			return (-1);
 	}
@@ -97,13 +69,13 @@ int	init_texture(t_window	*wndw)
 	int	j;
 
 	i = -1;
-	wndw->texture = (unsigned char **)malloc(sizeof(unsigned char *) * \
+	wndw->texture = (int **)malloc(sizeof(int *) * \
 		4);
 	if (!wndw->texture)
 		return (-1);
 	while (++i < 4)
 	{
-		wndw->texture[i] = (unsigned char *)malloc(sizeof(unsigned char) * \
+		wndw->texture[i] = (int *)malloc(sizeof(int) * \
 			(TEX_SIZE * TEX_SIZE));
 		if (!wndw->texture[i])
 			return (-1);
@@ -134,4 +106,31 @@ void	init_maths(t_window *wndw, t_maths *math, int x)
 	else
 		math->delta_y = fabs(1 / math->ydir);
 	math->hit = 0;
+}
+
+void	init_maths2(t_window	*wndw, t_maths *math)
+{
+	if (!math->perp_wall_dist)
+		math->line_height = (int) HEIGHT;
+	else
+		math->line_height = (int)(HEIGHT / math->perp_wall_dist);
+	math->draw_start = -math->line_height / 2 + HEIGHT / 2;
+	if (math->draw_start < 0)
+		math->draw_start = 0;
+	math->draw_end = math->line_height / 2 + HEIGHT / 2;
+	if (math->draw_end >= HEIGHT)
+		math->draw_end = HEIGHT - 1;
+	math->step = (1.0 * TEX_SIZE / math->line_height);
+	if (!math->side)
+		math->wall_x = wndw->pos_y + math->perp_wall_dist * math->ydir;
+	else
+		math->wall_x = wndw->pos_x + math->perp_wall_dist * math->xdir;
+	math->wall_x -= floor(math->wall_x);
+	math->tex_x = (int)(math->wall_x * (double)TEX_SIZE);
+	if (math->side == 0 && math->xdir > 0)
+		math->tex_x = TEX_SIZE - math->tex_x - 1;
+	if (math->side == 1 && math->ydir < 0)
+		math->tex_x = TEX_SIZE - math->tex_x - 1;
+	math->tex_pos = (math->draw_start - HEIGHT / 2 + math->line_height / 2) * \
+		math->step;
 }

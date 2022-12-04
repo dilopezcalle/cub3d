@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:47:15 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/19 08:12:02 by dilopez-         ###   ########.fr       */
+/*   Updated: 2022/12/04 14:03:51 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,26 @@ int	check_extension(char *file, char *set)
 	if (!extension || ft_strncmp(extension, set, ft_strlen(set) + 1) != 0)
 		return (1);
 	return (0);
+}
+
+void	clean_buffer(t_window *wndw)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (++y < HEIGHT)
+	{
+		x = -1;
+		while (++x < WIDTH)
+			wndw->buff[y][x] = 0;
+	}
+}
+
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->size + x * (data->bpp / 8));
+	*(unsigned int *)dst = color;
 }
