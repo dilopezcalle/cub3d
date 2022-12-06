@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 10:08:09 by almirand          #+#    #+#             */
-/*   Updated: 2022/12/06 10:24:24 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:54:02 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,38 +20,14 @@
 int	key_hook2(int key, t_window	*wndw);
 int	key_hook3(int key, t_window	*wndw);
 
-// int	gworldMap[24][24] =
-// 						{
-// 							{4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
-// 							{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-// 							{4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-// 							{4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-// 							{4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-// 							{4,0,4,0,0,0,0,5,5,5,5,5,5,5,5,5,7,7,0,7,7,7,7,7},
-// 							{4,0,5,0,0,0,0,5,0,5,0,5,0,5,0,5,7,0,0,0,7,7,7,1},
-// 							{4,0,6,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-// 							{4,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,1},
-// 							{4,0,8,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-// 							{4,0,0,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,7,7,7,1},
-// 							{4,0,0,0,0,0,0,5,5,5,5,0,5,5,5,5,7,7,7,7,7,7,7,1},
-// 							{6,6,6,6,6,6,6,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-// 							{8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-// 							{6,6,6,6,6,6,0,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-// 							{4,4,4,4,4,4,0,4,4,4,6,0,6,2,2,2,2,2,2,2,3,3,3,3},
-// 							{4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-// 							{4,0,0,0,0,0,0,0,0,0,0,0,6,2,0,0,5,0,0,2,0,0,0,2},
-// 							{4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-// 							{4,0,6,0,6,0,0,0,0,4,6,0,0,0,0,0,5,0,0,0,0,0,0,2},
-// 							{4,0,0,5,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-// 							{4,0,6,0,6,0,0,0,0,4,6,0,6,2,0,0,5,0,0,2,0,0,0,2},
-// 							{4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-// 							{4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}
-// 						};
-
 int	key_hook(int key, t_window	*wndw)
 {
 	char	**gworldMap = wndw->content->map;
+	double	aux_x;
+	double	aux_y;
 
+	aux_x = wndw->pos_x;
+	aux_y = wndw->pos_y;
 	if (key == W_U)
 	{
 		if ((gworldMap[(int)(wndw->pos_y)][(int)(wndw->pos_x + \
@@ -60,7 +36,6 @@ int	key_hook(int key, t_window	*wndw)
 		if ((gworldMap[(int)(wndw->pos_y + wndw->dir_y * \
 				wndw->spd_move)][(int)wndw->pos_x]) == '0')
 			wndw->pos_y += wndw->dir_y * wndw->spd_move;
-		printf("%f %f\n", wndw->pos_y, wndw->pos_x);
 	}
 	if (key == S_D)
 	{
@@ -70,12 +45,13 @@ int	key_hook(int key, t_window	*wndw)
 		if ((gworldMap[(int)(wndw->pos_y + wndw->dir_y * \
 				wndw->spd_move)][(int)wndw->pos_x]) == '0')
 			wndw->pos_y -= wndw->dir_y * wndw->spd_move;
-		if (gworldMap[(int)(wndw->pos_y)][(int)(wndw->pos_x + \
-				wndw->dir_x * wndw->spd_move)] == gworldMap[(int)(wndw->pos_y + wndw->dir_y * \
-				wndw->spd_move)][(int)wndw->pos_x])
-			gworldMap[(int)(wndw->pos_y)][(int)(wndw->pos_x + \
-				wndw->dir_x * wndw->spd_move)] = 0;
-		printf("%f %f\n", wndw->pos_y, wndw->pos_x); //TO DO: Crear temporales que guarden la pos anterior a  x,y = 1.
+	}
+	if (gworldMap[(int)(wndw->pos_y)][(int)(wndw->pos_x + \
+				wndw->dir_x * wndw->spd_move)] == '1' && gworldMap[(int)(wndw->pos_y + wndw->dir_y * \
+				wndw->spd_move)][(int)wndw->pos_x] == '1')
+	{
+		wndw->pos_x = aux_x;
+		wndw->pos_y = aux_y;
 	}
 	return (key_hook2(key, wndw));
 }

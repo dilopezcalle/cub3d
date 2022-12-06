@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:33:34 by almirand          #+#    #+#             */
-/*   Updated: 2022/12/04 12:51:29 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:52:47 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@
 
 void	get_player_dir(char pos, t_window	*wndw)
 {
-	if (pos == 'N')
+	if (pos == 'S')
 	{
-		wndw->dir_y = 1.0;
-		wndw->dir_x = 0.0;
+		wndw->dir_y = 0.98;
+		wndw->plane_x = -0.66;
 	}
-	else if (pos == 'S')
+	else if (pos == 'N')
 	{
-		wndw->dir_y = -1.0;
-		wndw->dir_x = 0.0;
+		wndw->dir_y = -0.98;
+		wndw->plane_x = 0.66;
 	}
 	else if (pos == 'E')
 	{
-		wndw->dir_y = 0.0;
-		wndw->dir_x = -1.0;
+		wndw->plane_y = 0.66;
+		wndw->dir_x = -0.98;
 	}
 	else if (pos == 'W')
 	{
-		wndw->dir_y = 0.0;
-		wndw->dir_x = 1.0;
+		wndw->plane_y = -0.66;
+		wndw->dir_x = 0.98;
 	}
 }
 
