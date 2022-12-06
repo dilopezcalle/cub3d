@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:43:14 by almirand          #+#    #+#             */
-/*   Updated: 2022/12/04 14:14:53 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:26:15 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,16 @@ void	get_texture_image(t_window *wndw, int	*txture, \
 		&img->width, &img->height);
 	if (img->width != 64 || img->height != 64)
 		exit(0); //FREE ALL Y MENSAJE
-	img->addr = mlx_get_data_addr(img->image, \
+	img->addr = (int *)mlx_get_data_addr(img->image, \
 		&img->bpp, &img->size, &img->endian);
 	y = -1;
 	while (++y < img->height)
 	{
 		x = -1;
 		while (++x < img->width)
-			txture[y * img->width + x] = (int)img->addr[y * img->width + x];
+			txture[y * img->width + x] = img->addr[y * img->width + x];
 	}
-	mlx_destroy_image(wndw->mlx, img->image);
+	//mlx_destroy_image(wndw->mlx, img->image);
 }
 
 void	build_image(t_window *wndw)
@@ -124,15 +124,24 @@ void	draw_textures(t_window	*wndw, t_maths	*math, int x)
 	int		color;
 	int		tex_num;
 
-	y = math->draw_start;
+	y = -1;
+	while (++y < math->draw_start)
+	{
+		math->tex_y = (int)math->tex_pos & (TEX_SIZE - 1);
+		wndw->buff[y][x] = wndw->content->color_ceiling;
+	}
 	tex_num = check_sides(math);
 	while (y < math->draw_end)
 	{
 		math->tex_y = (int)math->tex_pos & (TEX_SIZE - 1);
 		math->tex_pos += math->step;
 		color = wndw->texture[tex_num][TEX_SIZE * math->tex_y + math->tex_x];
-		wndw->buff[y][x] = color;
-		y++;
+		wndw->buff[y++][x] = color;
+	}
+	while (y < HEIGHT)
+	{
+		math->tex_y = (int)math->tex_pos & (TEX_SIZE - 1);
+		wndw->buff[y++][x] = wndw->content->color_floor;
 	}
 }
 

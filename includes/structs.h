@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:11:56 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/12/04 14:05:35 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/06 09:58:18 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_content
  * */
 typedef struct s_img {
 	void			*image;
-	char			*addr;
+	int				*addr;
 	int				bpp;
 	int				size;
 	int				endian;

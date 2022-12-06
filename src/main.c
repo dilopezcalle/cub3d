@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 10:22:54 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/12/04 14:14:16 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:54:52 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,32 +59,22 @@ int	init_window(t_content *content)
 
 	wndw.mlx = mlx_init();
 	get_player(&wndw, content);
-	// DIEGO: Guardar mapa en int en WNDW.map, ya tienes el N,S,E,W a 0, en teoria.
-	// wndw.pos_x = 13.0;
-	// wndw.pos_y = 3.0;
-	wndw.dir_x = -1.0;
-	wndw.dir_y = 0.0;
-	printf("x: %f\ny: %f\n", wndw.pos_x, wndw.pos_y);
+	/* wndw.dir_x = -1.0;
+	wndw.dir_y = 0.0; */
 	wndw.plane_x = 0.0;
 	wndw.plane_y = 0.66;
 	wndw.full_buff = 0;
-	wndw.spd_cam = 0.1;
-	wndw.spd_move = 0.1;
+	wndw.spd_cam = 0.2;
+	wndw.spd_move = 0.2;
 	if (init_buffer(&wndw) == -1)
 		return (-1);
 	if (init_texture(&wndw) == -1)
 		return (-1);
 	get_textures(&wndw, content);
 	wndw.content = content;
-	int i = 0;
-	while (wndw.content->map[i])
-	{
-		printf("%s\n", wndw.content->map[i]);
-		i++;
-	}
 	wndw.win = mlx_new_window(wndw.mlx, WIDTH, HEIGHT, "KIUB-3D");
 	wndw.img.image = mlx_new_image(wndw.mlx, WIDTH, HEIGHT);
-	wndw.img.addr = mlx_get_data_addr(wndw.img.image, \
+	wndw.img.addr = (int *)mlx_get_data_addr(wndw.img.image, \
 		&wndw.img.bpp, &wndw.img.size, &wndw.img.endian);
 	mlx_loop_hook(wndw.mlx, &each_frame, &wndw);
 	mlx_hook(wndw.win, 2, 0, &key_hook, &wndw);

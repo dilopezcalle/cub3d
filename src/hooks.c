@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 10:08:09 by almirand          #+#    #+#             */
-/*   Updated: 2022/12/04 14:14:31 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:24:24 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	key_hook(int key, t_window	*wndw)
 		if ((gworldMap[(int)(wndw->pos_y + wndw->dir_y * \
 				wndw->spd_move)][(int)wndw->pos_x]) == '0')
 			wndw->pos_y += wndw->dir_y * wndw->spd_move;
+		printf("%f %f\n", wndw->pos_y, wndw->pos_x);
 	}
 	if (key == S_D)
 	{
@@ -69,6 +70,12 @@ int	key_hook(int key, t_window	*wndw)
 		if ((gworldMap[(int)(wndw->pos_y + wndw->dir_y * \
 				wndw->spd_move)][(int)wndw->pos_x]) == '0')
 			wndw->pos_y -= wndw->dir_y * wndw->spd_move;
+		if (gworldMap[(int)(wndw->pos_y)][(int)(wndw->pos_x + \
+				wndw->dir_x * wndw->spd_move)] == gworldMap[(int)(wndw->pos_y + wndw->dir_y * \
+				wndw->spd_move)][(int)wndw->pos_x])
+			gworldMap[(int)(wndw->pos_y)][(int)(wndw->pos_x + \
+				wndw->dir_x * wndw->spd_move)] = 0;
+		printf("%f %f\n", wndw->pos_y, wndw->pos_x); //TO DO: Crear temporales que guarden la pos anterior a  x,y = 1.
 	}
 	return (key_hook2(key, wndw));
 }
