@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:11:56 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/12/06 09:58:18 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:58:06 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ typedef struct s_window
 	int				**map;
 	int				map_weight;
 	int				map_height;
+	int				front;
+	int				back;
+	int				right;
+	int				left;
 }			t_window;
 
 /*

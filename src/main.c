@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 10:22:54 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/12/06 15:37:23 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/06 16:15:27 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,6 @@ int	init_window(t_content *content)
 
 	wndw.mlx = mlx_init();
 	get_player(&wndw, content);
-/* 	wndw.dir_x = 0.0;
-	wndw.dir_y = -1.0;
-	wndw.plane_x = 0.66;
-	wndw.plane_y = 0.0; */
 	wndw.full_buff = 0;
 	wndw.spd_cam = 0.2;
 	wndw.spd_move = 0.2;
