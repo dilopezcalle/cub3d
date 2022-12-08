@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 10:08:09 by almirand          #+#    #+#             */
-/*   Updated: 2022/12/08 13:47:19 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/08 14:41:16 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,19 @@ int	key_hook1(t_window *wndw, char	**map)
 {
 	if (wndw->right == 1)
 	{
-		if ((map[(int)(wndw->pos_y)][(int)(wndw->pos_x + \
-				wndw->dir_x * wndw->spd_move)]) == '0')
+		if ((map[(int)(wndw->pos_y)][(int)(wndw->pos_x - \
+				wndw->dir_y * wndw->spd_move)]) == '0')
 			wndw->pos_x -= wndw->dir_y * wndw->spd_move;
-		if ((map[(int)(wndw->pos_y + wndw->dir_y * \
+		if ((map[(int)(wndw->pos_y + wndw->dir_x * \
 				wndw->spd_move)][(int)wndw->pos_x]) == '0')
 			wndw->pos_y -= -wndw->dir_x * wndw->spd_move;
 	}
 	if (wndw->left == 1)
 	{
-		if ((map[(int)(wndw->pos_y)][(int)(wndw->pos_x - \
-				wndw->dir_x * wndw->spd_move)]) == '0')
+		if ((map[(int)(wndw->pos_y)][(int)(wndw->pos_x + \
+				wndw->dir_y * wndw->spd_move)]) == '0')
 			wndw->pos_x += wndw->dir_y * wndw->spd_move;
-		if ((map[(int)(wndw->pos_y - wndw->dir_y * \
+		if ((map[(int)(wndw->pos_y - wndw->dir_x * \
 				wndw->spd_move)][(int)wndw->pos_x]) == '0')
 			wndw->pos_y += -wndw->dir_x * wndw->spd_move;
 	}

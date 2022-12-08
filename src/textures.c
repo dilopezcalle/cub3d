@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:43:14 by almirand          #+#    #+#             */
-/*   Updated: 2022/12/08 13:17:59 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:06:08 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdlib.h>
 
 void	get_texture_image(t_window *wndw, int	*txture, \
-							char	*path, t_img	*img);
+		char	*path, t_img	*img);
 void	init_maths(t_window *wndw, t_maths *math, int x);
 void	wall_hit(t_maths *math, t_window	*wndw);
 void	ray_direction(t_maths *math, t_window *wndw);
@@ -43,8 +43,11 @@ void	get_texture_image(t_window *wndw, int	*txture, \
 
 	img->image = mlx_xpm_file_to_image(wndw->mlx, path, \
 		&img->width, &img->height);
-	if (img->width != 64 || img->height != 64)
+	if (img->image == NULL || img->width != 64 || img->height != 64)
+	{
+		printf("Error: Imagen invalida\n");
 		exit_free_wndw(wndw);
+	}
 	img->addr = (int *)mlx_get_data_addr(img->image, \
 		&img->bpp, &img->size, &img->endian);
 	y = -1;

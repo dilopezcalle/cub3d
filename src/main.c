@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 10:22:54 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/12/08 13:40:44 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:02:40 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int	init_window(t_content *content)
 		return (-1);
 	if (init_texture(&wndw) == -1)
 		return (free_double_int(wndw.buff, HEIGHT), -1);
-	get_textures(&wndw, content);
 	wndw.content = content;
+	get_textures(&wndw, content);
 	wndw.win = mlx_new_window(wndw.mlx, WIDTH, HEIGHT, "KIUB-3D");
 	wndw.img.image = mlx_new_image(wndw.mlx, WIDTH, HEIGHT);
 	wndw.img.addr = (int *)mlx_get_data_addr(wndw.img.image, \
