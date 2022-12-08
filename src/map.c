@@ -6,17 +6,19 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:19:42 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/12/08 13:43:30 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:48:02 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 #include "libft.h"
 #include "utils.h"
+#include <math.h>
 
 static int	check_chars_map(char **map);
 static int	get_max_width_map(char **map);
 static int	check_spaces_map(char **map, int y, int x);
+int			exit_free_wndw(t_window *wndw);
 
 int	check_and_get_map(t_content *content, char **file_content)
 {
