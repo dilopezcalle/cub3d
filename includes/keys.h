@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 09:42:25 by almirand          #+#    #+#             */
-/*   Updated: 2022/11/19 10:29:58 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:51:10 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@
 */
 
 # define AR_L 123
-# define AR_D 125
 # define AR_R 124
-# define AR_U 126
 
 #endif

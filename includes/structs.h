@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:11:56 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/12/08 10:38:47 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:51:54 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ typedef struct s_window
 	int				front;
 	int				back;
 	int				right;
+	int				cam_right;
+	int				cam_left;
 	int				left;
 	int				exit;
 	double			aux_x;

@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 10:22:54 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/12/08 11:48:19 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/08 10:38:57 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int		key_release(int key, t_window *wndw);
 int		init_hook(t_window *wndw);
 int		exit_free_wndw(t_window *wndw);
 int		free_content_struct(t_content *content);
-void	free_double_int(int	**array, int x);
 
 int	main(int argc, char *argv[])
 {
@@ -64,7 +63,7 @@ int	init_window(t_content *content)
 	if (init_buffer(&wndw) == -1)
 		return (-1);
 	if (init_texture(&wndw) == -1)
-		return (free_double_int(wndw.buff, HEIGHT), -1);
+		return (-1);
 	get_textures(&wndw, content);
 	wndw.content = content;
 	wndw.win = mlx_new_window(wndw.mlx, WIDTH, HEIGHT, "KIUB-3D");

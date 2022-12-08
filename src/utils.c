@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:47:15 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/12/08 11:40:09 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/06 14:56:47 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,19 @@
 #include "structs.h"
 #include "libft.h"
 
-int	free_double_str(char **array)
+void	free_double_str(char **array)
 {
 	int	i;
 
 	i = 0;
 	if (!array)
-		return (-1);
+		return ;
 	while (array[i])
 	{
 		free(array[i]);
 		i++;
 	}
 	free(array);
-	return (-1);
 }
 
 int	free_content_struct(t_content *content)
