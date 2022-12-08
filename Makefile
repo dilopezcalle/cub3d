@@ -6,13 +6,13 @@
 #    By: almirand <almirand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/13 11:44:09 by dilopez-          #+#    #+#              #
-#    Updated: 2022/12/04 14:14:58 by almirand         ###   ########.fr        #
+#    Updated: 2022/12/08 11:05:25 by almirand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ================================= VARIABLES =================================
 
-NAME			=	cub3d
+NAME			=	cub3D
 LIBFT			=	libft.a
 MINILIBX		=	libmlx.a
 SRC_DIR			=	src
@@ -25,10 +25,11 @@ LINKS			=	-L . -lmlx -framework OpenGL -framework AppKit
 
 RM				=	rm -rf
 CC				=	gcc
-CFLAGS			=	-I $(INC_DIR) -g3 #-Wall -Werror -Wextra  #-fsanitize=address
+CFLAGS			=	-I $(INC_DIR) -g3 -Wall -Werror -Wextra  #-fsanitize=address
 
 SRCS			=	$(SRC_DIR)/main.c					\
 					$(SRC_DIR)/map.c					\
+					$(SRC_DIR)/raycast.c				\
 					$(SRC_DIR)/hooks.c					\
 					$(SRC_DIR)/textures.c				\
 					$(SRC_DIR)/init.c					\

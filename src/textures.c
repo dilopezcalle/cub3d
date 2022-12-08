@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:43:14 by almirand          #+#    #+#             */
-/*   Updated: 2022/12/06 15:07:21 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/08 11:16:00 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	wall_hit(t_maths *math, t_window	*wndw);
 void	ray_direction(t_maths *math, t_window *wndw);
 void	init_maths2(t_window	*wndw, t_maths *math);
 void	draw_textures(t_window	*wndw, t_maths	*math, int x);
+void	exit_free_wndw(t_window *wndw);
 
 void	get_textures(t_window *wndw, t_content *content)
 {
@@ -43,7 +44,7 @@ void	get_texture_image(t_window *wndw, int	*txture, \
 	img->image = mlx_xpm_file_to_image(wndw->mlx, path, \
 		&img->width, &img->height);
 	if (img->width != 64 || img->height != 64)
-		exit(0); //FREE ALL Y MENSAJE
+		exit_free_wndw(wndw);
 	img->addr = (int *)mlx_get_data_addr(img->image, \
 		&img->bpp, &img->size, &img->endian);
 	y = -1;
@@ -53,7 +54,6 @@ void	get_texture_image(t_window *wndw, int	*txture, \
 		while (++x < img->width)
 			txture[y * img->width + x] = img->addr[y * img->width + x];
 	}
-	//mlx_destroy_image(wndw->mlx, img->image);
 }
 
 void	build_image(t_window *wndw)
@@ -77,16 +77,16 @@ int	check_sides(t_maths	*math)
 	if (!math->side)
 	{
 		if (math->xdir > 0)
-			return (1);
-		else
 			return (2);
+		else
+			return (3);
 	}
 	else
 	{
 		if (math->ydir > 0)
-			return (0);
+			return (1);
 		else
-			return (3);
+			return (0);
 	}
 }
 
@@ -115,53 +115,4 @@ void	draw_textures(t_window	*wndw, t_maths	*math, int x)
 		math->tex_y = (int)math->tex_pos & (TEX_SIZE - 1);
 		wndw->buff[y++][x] = wndw->content->color_floor;
 	}
-}
-
-void	ray_direction(t_maths *math, t_window *wndw)
-{
-	if (math->xdir < 0)
-	{
-		math->stepx = -1;
-		math->raydist_x = (wndw->pos_x - math->posx) * math->delta_x;
-	}
-	else
-	{
-		math->stepx = 1;
-		math->raydist_x = (math->posx + 1.0 - wndw->pos_x) * math->delta_x;
-	}
-	if (math->ydir < 0)
-	{
-		math->stepy = -1;
-		math->raydist_y = (wndw->pos_y - math->posy) * math->delta_y;
-	}
-	else
-	{
-		math->stepy = 1;
-		math->raydist_y = (math->posy + 1.0 - wndw->pos_y) * math->delta_y;
-	}
-}
-
-void	wall_hit(t_maths *math, t_window	*wndw)
-{
-	while (!math->hit)
-	{
-		if (math->raydist_x < math->raydist_y)
-		{
-			math->raydist_x += math->delta_x;
-			math->posx += math->stepx;
-			math->side = 0;
-		}
-		else
-		{
-			math->raydist_y += math->delta_y;
-			math->posy += math->stepy;
-			math->side = 1;
-		}
-		if ((int)((wndw->content->map)[math->posy][math->posx]) - '0' > 0)
-			math->hit = 1;
-	}
-	if (!math->side)
-		math->perp_wall_dist = (math->raydist_x - math->delta_x);
-	else
-		math->perp_wall_dist = (math->raydist_y - math->delta_y);
 }

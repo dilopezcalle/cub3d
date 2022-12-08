@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:11:56 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/12/06 15:58:06 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/08 10:38:47 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ typedef struct s_img {
  * dirX			- Camera X position
  * dirY			- Camera Y position
  * buff			- Buffer
+ * spd_move		- Movement speed
+ * cam_speed	- Camera speed
+ * texture		- Saved textures pixl per pixel
+ * content		- Content structure
  */
 typedef struct s_window
 {
@@ -75,20 +79,21 @@ typedef struct s_window
 	double			plane_x;
 	double			plane_y;
 	int				**buff;
-	int				full_buff;
 	double			spd_move;
 	double			spd_cam;
 	int				**texture;
 	t_content		*content;
 	double			aux_dirx;
 	double			aux_planex;
-	int				**map;
 	int				map_weight;
 	int				map_height;
 	int				front;
 	int				back;
 	int				right;
 	int				left;
+	int				exit;
+	double			aux_x;
+	double			aux_y;
 }			t_window;
 
 /*
