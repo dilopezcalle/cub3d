@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:39:02 by almirand          #+#    #+#             */
-/*   Updated: 2022/12/08 10:35:37 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/08 11:51:00 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,22 @@ int	init_hook(t_window *wndw)
 	return (1);
 }
 
+void	free_double_int(int	**array, int x)
+{
+	int	i;
+
+	i = 0;
+	while (i < x)
+	{
+		free(array[i++]);
+	}
+	free(array);
+}
+
 int	exit_free_wndw(t_window *wndw)
 {
 	free_content_struct(wndw->content);
+	free_double_int(wndw->texture, 4);
+	free_double_int(wndw->buff, HEIGHT);
 	exit (0);
 }
