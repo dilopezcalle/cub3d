@@ -6,7 +6,7 @@
 /*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 10:08:09 by almirand          #+#    #+#             */
-/*   Updated: 2022/12/08 13:35:32 by almirand         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:43:42 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,24 +134,4 @@ int	key_hook2(t_window	*wndw, char	**map)
 			wndw->plane_y * cos(-wndw->spd_cam);
 	}
 	return (key_hook3(wndw));
-}
-
-int	key_hook3(t_window	*wndw)
-{
-	if (wndw->cam_right == 1)
-	{
-		wndw->aux_dirx = wndw->dir_x;
-		wndw->dir_x = wndw->dir_x * cos(wndw->spd_cam) - \
-			wndw->dir_y * sin(wndw->spd_cam);
-		wndw->dir_y = wndw->aux_dirx * sin(wndw->spd_cam) + \
-			wndw->dir_y * cos(wndw->spd_cam);
-		wndw->aux_planex = wndw->plane_x;
-		wndw->plane_x = wndw->plane_x * cos(wndw->spd_cam) - \
-			wndw->plane_y * sin(wndw->spd_cam);
-		wndw->plane_y = wndw->aux_planex * sin(wndw->spd_cam) + \
-			wndw->plane_y * cos(wndw->spd_cam);
-	}
-	if (wndw->exit == 1)
-		exit_free_wndw(wndw);
-	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dilopez- <dilopez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: almirand <almirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:19:42 by dilopez-          #+#    #+#             */
-/*   Updated: 2022/11/19 08:36:03 by dilopez-         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:43:30 by almirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,24 @@ static int	get_max_width_map(char **map)
 		y++;
 	}
 	return (max_width);
+}
+
+int	key_hook3(t_window	*wndw)
+{
+	if (wndw->cam_right == 1)
+	{
+		wndw->aux_dirx = wndw->dir_x;
+		wndw->dir_x = wndw->dir_x * cos(wndw->spd_cam) - \
+			wndw->dir_y * sin(wndw->spd_cam);
+		wndw->dir_y = wndw->aux_dirx * sin(wndw->spd_cam) + \
+			wndw->dir_y * cos(wndw->spd_cam);
+		wndw->aux_planex = wndw->plane_x;
+		wndw->plane_x = wndw->plane_x * cos(wndw->spd_cam) - \
+			wndw->plane_y * sin(wndw->spd_cam);
+		wndw->plane_y = wndw->aux_planex * sin(wndw->spd_cam) + \
+			wndw->plane_y * cos(wndw->spd_cam);
+	}
+	if (wndw->exit == 1)
+		exit_free_wndw(wndw);
+	return (0);
 }
